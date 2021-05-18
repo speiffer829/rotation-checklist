@@ -1,11 +1,16 @@
 <template>
 	<div id="signin-page">
-		<div class="signin-box">
+		<div class="form-box">
 			<form @submit.prevent="login">
-				<input type="email" name="email" v-model="auth.email" placeholder="email">
-				<input type="password" name="email" v-model="auth.password" placeholder="password">
+				<label for="email">Email</label>
+				<input type="email" name="email" v-model="auth.email" placeholder="email" id="email">
+
+				<label for="password">Password</label>
+				<input type="password" name="email" v-model="auth.password" placeholder="password" id="password">
 				
-				<button type="submit">Submit</button>
+				<button class="submit-btn" type="submit">Log In</button>
+
+				<nuxt-link to="/signup" class="switch-page">Sign Up</nuxt-link>
 			</form>
 
 			<p v-if="msg">{{ msg }}</p>
@@ -24,6 +29,7 @@ export default {
 			msg: ''
 		}
 	},
+	layout: 'signupin',
 	methods: {
 		login(){
 			const self = this;
@@ -42,27 +48,6 @@ export default {
 }
 </script>
 
-<style lang="scss">
-	#signin-page{
-		min-height: 100vh;
-		width: 100%;
-		display: flex;
-		justify-content: center;
-		align-items: center;
 
-		.signin-box{
-			max-width: 480px;
-			box-shadow: 3px 0 10px rgba(0,0,0,0.5);
-			border-radius: 10px;
-			padding: 1rem;
-
-			input{
-				width: 80%;
-				display: block;
-				font-size: 1.1em;
-			}
-		}
-	}
-</style>
 
 

@@ -22,7 +22,7 @@ const mutations = {
 }
 
 const state = () => ({
-	user: 'wham'
+	user: null
 })
 
 const getters = {
