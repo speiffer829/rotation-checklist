@@ -40,15 +40,27 @@ export default {
 	methods: {
 		async signup(){
 			const self = this;
-			this.$fire.auth.createUserWithEmailAndPassword(
-          self.email,
-          self.password
-        ).catch ((e) => {
-        self.msg = e
-      })
-			.then(result => {
-				console.log( result )
-			})
+
+			if(this.password === this.passwordConfirm){
+				this.$fire.auth.createUserWithEmailAndPassword(
+						self.email,
+						self.password
+					).catch ((e) => {
+					self.msg = e
+				})
+				.then(result => {
+					console.log( result )
+				})
+			}else{
+				this.setMsg('Confirm password does\'t match')
+			}
+		},
+		setMsg(msg){
+			this.msg = msg
+
+			setTimeout(() => {
+				this.msg = ''
+			}, 3000);
 		}
 	},
 }

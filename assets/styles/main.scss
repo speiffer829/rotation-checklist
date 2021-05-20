@@ -2,6 +2,7 @@
 
 :root{
 	--mint: #69DC9E;
+	--red: #F46036;
 	--blue: #5386E4;
 	--light: #F5F4F4;
 	--lightbase: #EAEAEA;
@@ -28,14 +29,24 @@
 
 		--base-shadow: var(--dark-shadow);
 	}
-	@media (prefers-color-scheme: light){
-		--base: var(--lightbase);
-		--baselighter: var(--light);
+}
 
-		--text: var(--dark);
+.light{
+	--base: var(--lightbase);
+	--baselighter: var(--light);
 
-		--base-shadow: var(--light-shadow);
-	}
+	--text: var(--dark);
+
+	--base-shadow: var(--light-shadow);
+}
+
+.dark{
+	--base: var(--darkest);
+	--baselighter: var(--dark);
+
+	--text: var(--light);
+
+	--base-shadow: var(--dark-shadow);
 }
 
 
@@ -72,3 +83,12 @@ input, button{
 }
 
 button{ cursor: pointer; }
+
+.wrap{
+	max-width: 1440px;
+	margin: 0 auto;
+
+	@media screen and (max-width: 1460px) {
+		padding: 0 10px;
+	}
+}
