@@ -1,6 +1,6 @@
 <template>
   <main>
-    <Nav @modeChange="toggleMode" />
+    <Nav @modeChange="toggleMode" @logout="signOut" :mode="mode" />
     <Nuxt />
   </main>
 </template>
@@ -11,18 +11,26 @@ export default {
   components:{
     Nav
   },
+  data() {
+    return {
+      mode: ''
+    }
+  },
   mounted() {
     const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches
     const isInMemory = window.localStorage.getItem('color-theme')
     if(isInMemory){
       document.querySelector('body').classList.add(isInMemory)
+      this.mode = isInMemory
       return
     }
 
     if(isDark){
       document.querySelector('body').classList.add('dark')
+      this.mode = 'dark'
     }else{
       document.querySelector('body').classList.add('light')
+      this.mode = 'light'
     }
   },
   methods: {
@@ -31,7 +39,11 @@ export default {
       const newMode = bod.classList.contains('dark') ? 'light' : 'dark'
       bod.classList.remove('light', 'dark')
       bod.classList.add(newMode)
+      this.mode = newMode
       window.localStorage.setItem('color-theme', newMode)
+    },
+    signOut(){
+      this.$fire.auth.signOut()
     }
   },
 }
