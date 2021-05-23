@@ -4,13 +4,13 @@
 	--mint: #69DC9E;
 	--red: #F46036;
 	--blue: #5386E4;
-	--light: #F5F4F4;
+	--light: #fff;
 	--lightbase: #F2F6FC;
 	--dark: #2C4167;
 	--darkest: #1C2C48;
 
-	--light-shadow: 0px 3px 6px #dbdfe5;
-	--dark-shadow: 0px 3px 6px #142036;
+	--light-shadow: 0px 0px 10px #dbdfe5;
+	--dark-shadow: 0px 0px 10px #142036;
 
 	--base: var(--lightbase);
 	--baselighter: var(--light);
@@ -20,6 +20,8 @@
 	--base-shadow: var(--light-shadow);
 
 	--font: 'Poppins', sans-serif;
+
+	--cb: cubic-bezier(.42,0,0,2.1);
 
 	@media (prefers-color-scheme: dark){
 		--base: var(--darkest);
@@ -44,7 +46,7 @@
 	--base: var(--darkest);
 	--baselighter: var(--dark);
 
-	--text: var(--light);
+	--text: var(--lightbase);
 
 	--base-shadow: var(--dark-shadow);
 }

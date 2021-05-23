@@ -8,7 +8,7 @@
 					</svg>
 				</button>
 
-				<p class="welcome">Hello, Spenser</p>
+				<p class="welcome">Hello, {{getUser.name || ''}}</p>
 
 				<button class="nav-btns dots" @click="showMenu = !showMenu">
 					<svg width="34" height="10" viewBox="0 0 34 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -19,10 +19,12 @@
 				</button>
 
 			
-			<div class="menu-box" :class="{active: showMenu}" @blur="showMenu = false">
-				<button @click="$emit('modeChange')">{{mode}} Mode</button>
-				<button @click="$emit('logout')">Log Out</button>
-			</div>
+			<transition name="menu-trans">
+				<div class="menu-box" v-if="showMenu" @blur="showMenu = false">
+					<button @click="$emit('modeChange')">{{mode}} Mode</button>
+					<button @click="$emit('logout')">Log Out</button>
+				</div>
+			</transition>
 			
 		</div>
 	</div>
@@ -30,6 +32,7 @@
 
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
 	name:"Nav",
 	props:{
@@ -39,6 +42,28 @@ export default {
 		return {
 			showMenu: false
 		}
+	},
+	watch:{
+		showMenu: function () {
+			if(this.showMenu === true){
+				document.querySelector('body').addEventListener('click', this.closeThing)
+			}else{
+				console.log( 'foobar' )
+				document.querySelector('body').removeEventListener('click', this.closeThing)
+			}
+		}
+	},
+	methods: {
+		closeThing(e){
+			if(!e.target.closest('.dots') && !e.target.closest('.menu-box')){
+				this.showMenu = false
+			}
+		}
+	},
+	computed: {
+		...mapGetters([
+			'getUser',
+		])
 	},
 }
 </script>
@@ -110,11 +135,7 @@ export default {
 		width: 200px;
 		border-radius: 5px;
 		filter: drop-shadow(var(--base-shadow));
-		display: none;
 
-			&.active{
-				display: block;
-			}
 		
 		@media screen and (min-width: 1440px) {
 			right: 0px;
@@ -164,4 +185,12 @@ export default {
 	}
 
 
+
+.menu-trans-enter-active, .menu-trans-leave-active {
+	transition: transform 500ms var(--cb), opacity 300ms;
+}
+.menu-trans-enter, .menu-trans-leave-to {
+	opacity: 0;
+	transform:  scale(.9) translateY(-40px);
+}
 </style>

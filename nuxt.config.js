@@ -58,8 +58,8 @@ export default {
               subscribeManually: false
             },
             ssr: false,
-            firestore: true,
-          }
+          },
+          firestore: true,
         }
       }
     ]
@@ -76,5 +76,5 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {}
+  build: {},
 };

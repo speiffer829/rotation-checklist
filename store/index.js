@@ -7,9 +7,15 @@ const actions = {
 			})
 		} else {
 			const {uid, email} = authUser
+			const otherStuff = await this.$fire.firestore
+        .collection("users")
+        .doc("YUqBASz05OWiy3RNAUJFKf9dvX32")
+        .get();
+			const name = otherStuff.data().name
 			state.commit('SET_USER', {
 				uid,
 				email,
+				name
 			})
 		}
 	}
@@ -22,7 +28,11 @@ const mutations = {
 }
 
 const state = () => ({
-	user: null
+	user: {
+		uid: '',
+		email: '',
+		name: ''
+	}
 })
 
 const getters = {

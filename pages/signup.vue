@@ -44,12 +44,12 @@ export default {
 			if(this.password === this.passwordConfirm){
 				this.$fire.auth.createUserWithEmailAndPassword(
 						self.email,
-						self.password
+						self.password,
 					).catch ((e) => {
 					self.msg = e
 				})
-				.then(result => {
-					console.log( result )
+				.then((result) => {
+					self.makeNewUser( self.$fire.auth.currentUser )
 				})
 			}else{
 				this.setMsg('Confirm password does\'t match')
@@ -61,6 +61,18 @@ export default {
 			setTimeout(() => {
 				this.msg = ''
 			}, 3000);
+		},
+		async makeNewUser(newUser){
+			const self = this
+			this.$fire.firestore.collection('users').doc(newUser.uid).set({
+				uid: newUser.uid,
+				name: self.name,
+				email: self.email,
+			})
+			.catch(err => console.log( err ))
+			.then(() => {
+				self.$router.push('/')
+			})
 		}
 	},
 }
